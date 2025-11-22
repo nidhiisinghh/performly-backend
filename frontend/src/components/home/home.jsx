@@ -76,7 +76,7 @@ const Home = () => {
               <LoaderText />
             </div>
             <div className="third w-full">
-              <h1 className="border-l-4 border-blue-500 pl-6 text-gray-300 text-2xl lg:text-3xl font-light leading-relaxed">
+              <h1 className=" text-gray-300 text-2xl lg:text-3xl font-light leading-relaxed">
                 Your Gateway to Incredible Gigs and Unforgettable Events!
               </h1>
             </div>
