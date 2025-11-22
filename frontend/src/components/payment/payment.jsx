@@ -92,62 +92,68 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-center">
+    <div className="min-h-screen bg-black text-center relative overflow-hidden">
+       {/* Background Gradients */}
+       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 rounded-full blur-[120px]"></div>
+       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+
       {/* Header */}
-      <div className="h-[20%] flex items-center justify-center border-sky-900 p-6 md:p-10 bg-sky-900 text-white">
-        <h1 className="text-4xl md:text-7xl font-bold">Your Payment</h1>
+      <div className="h-[20vh] flex items-center justify-center relative z-10">
+        <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400">Your Payment</h1>
       </div>
 
       {/* Main Content */}
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-gray-100">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 relative z-10 container mx-auto px-6 pb-20">
         {/* Left Column - Animation */}
         <div className="flex items-center justify-center p-6">
-          <div className="w-full max-w-xs md:max-w-md lg:max-w-lg">
+          <div className="w-full max-w-xs md:max-w-md lg:max-w-lg opacity-90">
             <PaymentPic />
           </div>
         </div>
 
         {/* Right Column - Booking Summary */}
         <div className="flex items-center justify-center p-6">
-          {error && <p className="text-red-500">{error}</p>}
+          {error && <p className="text-red-500 mb-4">{error}</p>}
           {booking ? (
-            <div className="bg-white w-full max-w-2xl p-6 rounded-2xl shadow-xl">
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 border-b pb-4 border-gray-200">
+            <div className="bg-white/5 border border-white/10 backdrop-blur-xl w-full max-w-2xl p-8 rounded-3xl shadow-2xl shadow-blue-900/20 text-left">
+              <h1 className="text-3xl font-bold text-white mb-8 border-b border-white/10 pb-6">
                 Booking Summary
               </h1>
 
-              <div className="space-y-4 text-left">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-lg font-semibold text-gray-600">Performer:</span>
-                  <span className="text-lg font-bold text-gray-900">{performer?.name}</span>
+              <div className="space-y-6">
+                <div className="flex justify-between items-center py-2 border-b border-white/5">
+                  <span className="text-lg font-semibold text-blue-400">Performer:</span>
+                  <span className="text-xl font-bold text-white">{performer?.name}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-lg font-semibold text-gray-600">Date:</span>
-                  <span className="text-lg text-gray-900">{booking.date ? new Date(booking.date).toLocaleDateString() : "-"}</span>
+                <div className="flex justify-between items-center py-2 border-b border-white/5">
+                  <span className="text-lg font-semibold text-blue-400">Date:</span>
+                  <span className="text-lg text-gray-300">{booking.date ? new Date(booking.date).toLocaleDateString() : "-"}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-lg font-semibold text-gray-600">Time:</span>
-                  <span className="text-lg text-gray-900">{booking.time || "-"}</span>
+                <div className="flex justify-between items-center py-2 border-b border-white/5">
+                  <span className="text-lg font-semibold text-blue-400">Time:</span>
+                  <span className="text-lg text-gray-300">{booking.time || "-"}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-lg font-semibold text-gray-600">Location:</span>
-                  <span className="text-lg text-gray-900 text-right max-w-[60%]">{booking.location || "-"}</span>
+                <div className="flex justify-between items-center py-2 border-b border-white/5">
+                  <span className="text-lg font-semibold text-blue-400">Location:</span>
+                  <span className="text-lg text-gray-300 text-right max-w-[60%]">{booking.location || "-"}</span>
                 </div>
-                <div className="flex justify-between items-center py-4 mt-6 bg-sky-50 rounded-lg px-4">
-                  <span className="text-xl font-bold text-gray-800">Total Amount:</span>
-                  <span className="text-xl font-bold text-sky-800">₹{price}</span>
+                <div className="flex justify-between items-center py-6 mt-6 bg-blue-900/20 rounded-xl px-6 border border-blue-500/20">
+                  <span className="text-xl font-bold text-white">Total Amount:</span>
+                  <span className="text-2xl font-bold text-blue-400">₹{price}</span>
                 </div>
               </div>
 
               <button
                 onClick={handlePayment}
-                className="w-full mt-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white text-lg md:text-xl font-semibold rounded-xl hover:from-indigo-700 hover:to-indigo-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="w-full mt-8 py-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white text-xl font-bold rounded-xl hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
               >
                 Pay with Razorpay
               </button>
             </div>
           ) : (
-            <p>Loading booking details...</p>
+            <div className="flex justify-center items-center h-60">
+                <p className="text-blue-400 animate-pulse text-xl">Loading booking details...</p>
+            </div>
           )}
         </div>
       </div>

@@ -46,16 +46,16 @@ const Home = () => {
   return (
     <div className="main h-full">
      <div>
-  <header className="head fixed top-0 z-[1] h-20 w-screen flex items-center justify-between ">
+  <header className="head fixed top-0 z-50 h-20 w-screen flex items-center justify-between bg-black/10 backdrop-blur-md border-b border-white/10">
 
-    <div className="logo flex items-center">
-      <img src="./logoo.png" alt="Logo" className="h-26 mt-10 " />
+    <div className="logo flex items-center pl-10">
+      <img src="./logoo.png" alt="Logo" className="h-12" />
     </div>
 
     {/* Login button on the right */}
-    <div className="flex pr-5 items-center">
+    <div className="flex pr-10 items-center">
       <button
-        className="h-12 w-28  rounded-lg bg-sky-900 text-lg text-white hover:scale-110 transition-all duration-300 ease-in-out hover:bg-black hover:text-white"
+        className="h-10 px-6 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 text-white font-semibold hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-105 transition-all duration-300 ease-in-out"
         onClick={handlenavigate}
       >
         LOGIN
@@ -64,54 +64,79 @@ const Home = () => {
   </header>
 </div>
 
-      <div className="home-container overflow-hidden h-full w-screen relative bg-black">
-        <div className="service-text flex flex-col lg:flex-row h-screen w-full bg-orange-100">
-          <div className="w-full lg:w-2/5 h-full text-4xl  sm:text-6xl lg:text-8xl p-3">
-            <div className="text-pos h-1/5 w-full flex relative">
-              <h1 className="absolute top-2/4 font-bold left-[5%]  hover:border-b-3  transition-all ease-in 200">
+      <div className="home-container overflow-x-hidden min-h-screen w-screen relative bg-black text-white">
+        <div className="service-text flex flex-col lg:flex-row h-screen w-full relative z-10">
+          <div className="w-full lg:w-2/5 h-full flex flex-col justify-center p-10 lg:pl-20">
+            <div className="text-pos w-full mb-8">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
                 FIND YOUR PERFORMER
               </h1>
             </div>
-            <div className="textaniamte flex h-2/5 w-full ">
+            <div className="textaniamte flex w-full mb-8">
               <LoaderText />
             </div>
-            <div className="third h-2/5 w-full ">
-              <h1 className="border-l-30 border-orange-100 text-sky-900 text-5xl">
+            <div className="third w-full">
+              <h1 className="border-l-4 border-blue-500 pl-6 text-gray-300 text-2xl lg:text-3xl font-light leading-relaxed">
                 Your Gateway to Incredible Gigs and Unforgettable Events!
               </h1>
-
             </div>
           </div>
-          <div className="second h-screen w-3/5 ">
-            <div className="slider w-1/3 h-full  ">
-              <div className=" w-full relative h-full">
-                <div className="animate-slide absolute left-90 ">
+          <div className="second h-screen w-3/5 flex items-center relative overflow-hidden">
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-l from-black via-transparent to-transparent z-20 pointer-events-none"></div>
+            
+            <div className="slider w-1/3 h-[120%] -rotate-6 transform translate-y-[-10%] opacity-80">
+              <div className="w-full relative h-full">
+                <div className="animate-slide absolute left-0">
                   {[...images, ...images].map((item, i) => (
                     <div
                       key={i}
-                      className="w-60 sm:w-56 md:w-64 h-50 mx-2 flex-shrink-0 ease-in-out duration-200 hover:scale-105"
+                      className="w-full p-2"
                     >
-                      <img
-                        src={item.src}
-                        className="h-49 w-full object-cover"
-                      />
+                      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20">
+                        <img
+                          src={item.src}
+                          className="h-64 w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-            <div className="slider2 w-2/3 h-full opacity-90 ">
-              <div className=" w-full relative h-full">
-                <div className="animate-slide2 absolute left-160">
+            <div className="slider2 w-1/3 h-[120%] -rotate-6 transform translate-y-[-20%] opacity-60 mx-4">
+              <div className="w-full relative h-full">
+                <div className="animate-slide2 absolute left-0">
                   {[...images, ...images, ...images].map((item, i) => (
                     <div
                       key={i}
-                      className="w-60 sm:w-56 md:w-64 h-50 mx-2 flex-shrink-0 ease-in-out duration-200 hover:scale-105"
+                      className="w-full p-2"
                     >
-                      <img
-                        src={item.src}
-                        className="h-48 w-full object-cover"
-                      />
+                      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20">
+                        <img
+                          src={item.src}
+                          className="h-64 w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+             <div className="slider3 w-1/3 h-[120%] -rotate-6 transform translate-y-[-5%] opacity-40">
+              <div className="w-full relative h-full">
+                 <div className="animate-slide absolute left-0" style={{animationDuration: '25s'}}>
+                  {[...images, ...images].map((item, i) => (
+                    <div
+                      key={i}
+                      className="w-full p-2"
+                    >
+                      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20">
+                        <img
+                          src={item.src}
+                          className="h-64 w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -122,41 +147,40 @@ const Home = () => {
       </div>{" "}
 
       
-      <div className="second-page h-screen  w-screen">
-        <div className="one h-1/7 bg-black text-white flex items-center overflow-hidden py-6">
-          <div className="secondslide-text space-x-50 font-bold text-3xl whitespace-nowrap items-center">
+      <div className="second-page min-h-screen w-screen bg-black relative py-20">
+        <div className="one h-20 bg-blue-900/10 border-y border-blue-900/30 flex items-center overflow-hidden mb-20 backdrop-blur-sm">
+          <div className="secondslide-text space-x-20 font-bold text-2xl text-blue-400/50 whitespace-nowrap items-center tracking-widest">
             {[...secondSlideText, ...secondSlideText, ...secondSlideText].map(
               (text, index) => (
-                <span key={index}> || {text}||</span>
+                <span key={index}>✦ {text}</span>
               )
             )}
           </div>
         </div>
-        <div className="two h-3/7 relative ">
-          <div className="aboutus h-1/2 text-9xl  w-[50%] font-bold absolute top-10 left-10 ">
-            <h1 className=" appearanimation">What We Do</h1>
-          </div>
-          <div className="secondtext h-1/4 text-5xl flex items-center font-bold  w-[80%] absolute top-40 left-13">
-            <h1>
-              Connecting artists and organizers effortlessly to spotlight and
-              discover talent.
+        
+        <div className="container mx-auto px-10">
+          <div className="mb-16">
+            <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-500 mb-4 appearanimation">
+              What We Do
             </h1>
+            <p className="text-2xl text-gray-400 max-w-2xl secondtext">
+              Connecting artists and organizers effortlessly to spotlight and discover talent.
+            </p>
           </div>
-        </div>
-        <div className="three h-3/7  relative">
-          <div className="aboutustext h-[90%] w-[95%] flex absolute left-15   ">
-            <div className="  w-full "></div>
-            <div className="appearanimation2 w-full text-orange-200 bg-sky-900  text-xl hover:scale-110 transition-all ease-in-out duration-500 border-29 border-sky-900 rounded-xl">
-              <h1 className="text-5xl">Performers</h1>
-              
-              We empower performers with a platform to showcase their talent, manage gigs effortlessly, and secure fast, hassle-free payments. Build a captivating brand, grow your reputation with verified reviews, and stay connected with a supportive community. Let us help you elevate your career and unlock new opportunities.
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="appearanimation2 p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-lg hover:bg-white/10 transition-all duration-500 group">
+              <h1 className="text-4xl font-bold text-blue-400 mb-6 group-hover:text-blue-300">Performers</h1>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                We empower performers with a platform to showcase their talent, manage gigs effortlessly, and secure fast, hassle-free payments. Build a captivating brand, grow your reputation with verified reviews, and stay connected with a supportive community.
+              </p>
             </div>
-            <div className="w-1/7"></div>
-            <div className="appearanimation text-orange-200 h-full w-full text-xl bg-sky-900 hover:scale-110 transition-all ease-in-out duration-500  border-29 border-sky-900  rounded-xl ">
-              <h1 className="text-5xl text-orange-200">Clients & Event Organizers:</h1>
-              
-              Clients and event organizers can discover exceptional local talent, from musicians and magicians to comedians and dancers. Effortlessly browse and filter by category, price, availability, and location. Enjoy hassle-free bookings with instant gig requests, availability confirmation, and secure payments—all in one convenient platform.
-              
+
+            <div className="appearanimation p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-lg hover:bg-white/10 transition-all duration-500 group">
+              <h1 className="text-4xl font-bold text-blue-400 mb-6 group-hover:text-blue-300">Clients & Organizers</h1>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Clients and event organizers can discover exceptional local talent, from musicians and magicians to comedians and dancers. Effortlessly browse and filter by category, price, availability, and location. Enjoy hassle-free bookings with instant gig requests.
+              </p>
             </div>
           </div>
         </div>

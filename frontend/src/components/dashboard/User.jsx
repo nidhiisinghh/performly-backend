@@ -15,17 +15,20 @@ const PerformerCard = ({ performer, index }) => {
         performer.userId?._id ? `/performerinfo/${performer.userId._id}` : "#"
       }
       key={performer.userId?._id || performer._id}
-      className={`bg-sky-900 h-60 rounded-2xl border-30 text-xl border-sky-900 text-white shadow-xl hover:scale-110 transition-all duration-400 ease-out
+      className={`bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-white shadow-xl hover:shadow-blue-500/20 hover:scale-[1.02] transition-all duration-300 ease-out
       ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
-      relative z-[${50 - index}] w-full`}
+      relative z-[${50 - index}] w-full group overflow-hidden`}
     >
-      <h3 className="text-3xl font-semibold text-white mb-1">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <h3 className="text-2xl font-bold text-white mb-2 relative z-10">
         {performer.userId?.name || "Unnamed Performer"}
       </h3>
-      <p><strong>Category:</strong> {performer.category}</p>
-      <p><strong>Sub-Category:</strong> {performer.subCategory}</p>
-      <p><strong>Pricing:</strong> ₹{performer.pricing}</p>
-      <span className="inline-block mt-4 font-medium hover:underline transition-all duration-700 ease-out">
+      <div className="space-y-1 text-gray-300 relative z-10">
+        <p><strong className="text-blue-400">Category:</strong> {performer.category}</p>
+        <p><strong className="text-blue-400">Sub-Category:</strong> {performer.subCategory}</p>
+        <p><strong className="text-blue-400">Pricing:</strong> ₹{performer.pricing}</p>
+      </div>
+      <span className="inline-block mt-4 font-medium text-blue-400 group-hover:text-blue-300 group-hover:translate-x-2 transition-all duration-300 ease-out relative z-10">
         View Details →
       </span>
     </Link>
@@ -100,66 +103,70 @@ const User = () => {
 
   return (
     <>
-      <div className="h-full w-screen bg-gradient-to-b mb-12 from-orange-100 to-white justify-center">
-        <div className="container m-auto w-screen">
-          <div className="heading h-full">
-            <div className="h-[6%] ml-10 font-bold text-8xl">
-              <h1 className="pt-20">WELCOME,{user.name} </h1>
+      <div className="min-h-screen w-screen bg-black text-white relative overflow-x-hidden">
+        {/* Background Gradients */}
+        <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-900/20 rounded-full blur-[120px]"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        </div>
+
+        <div className="container mx-auto px-6 py-10 relative z-10">
+          <div className="heading mb-16">
+            <div className="mb-8">
+              <h1 className="text-6xl md:text-8xl font-bold tracking-tighter">
+                WELCOME, <span className="text-blue-500">{user.name}</span>
+              </h1>
             </div>
-            <div className="h-[10%] mt-8">
-              <h2 className="text-7xl font-bold text-transparent ml-5 bg-clip-text bg-gradient-to-r from-sky-900 to-orange-100 border-orange-100">
+            <div className="mb-12 max-w-4xl">
+              <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400 mb-6">
                 Discover Talented Performers
               </h2>
-              <div className="flex h-17 items-center text-xl text-sky-900 ml-10 border-orange-100 font-medium w-[50%]">
-                <h1>
-                  Find extraordinary performers who will transform your event into an unforgettable experience
-                </h1>
-              </div>
+              <p className="text-xl text-gray-400 leading-relaxed max-w-2xl">
+                Find extraordinary performers who will transform your event into an unforgettable experience.
+              </p>
             </div>
 
            
-            <div className="my-8 ml-10">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-md">
+              <div className="flex items-center gap-4">
+                <label htmlFor="categoryFilter" className="font-semibold text-xl text-blue-400">
+                  Filter by Category:
+                </label>
+                <div className="relative">
+                    <select
+                        id="categoryFilter"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        className="bg-black/40 border border-white/20 h-12 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-blue-500 transition-all appearance-none pr-10 min-w-[200px]"
+                    >
+                        <option value="All">All Categories</option>
+                        {categories.map((cat) => (
+                        <option key={cat} value={cat}>{cat}</option>
+                        ))}
+                    </select>
+                     <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+              </div>
               
-              <div className="flex space-x-183">
-<label htmlFor="categoryFilter" className="font-semibold mr-4 text-xl text-sky-900">
-                Filter by Category:
-              </label>
-              <select
-                id="categoryFilter"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="border border-sky-900 h-10 w-40 rounded-md px-4 py-2"
+              <button
+                onClick={handleYourAppointment}
+                className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-400 text-white font-bold hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-105 transition-all duration-300"
               >
-                <option value="All">All</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-              <div>
-                 <button
-              onClick={handleYourAppointment}
-              className="text-white font-semibold  w-60 h-20  z-[100] rounded-lg bg-sky-900 hover:shadow-xl hover:scale-105 hover:bg-sky-950 hover:shadow-black  transition-all duration-400 ease-in-out"
-            >
-              Your Appointments
-            </button>
-
-              </div>
-
-              </div>
+                Your Appointments
+              </button>
             </div>
 
-           
-
-            <div className="w-full h-[84%] mt-20 justify-center">
-              <div className="w-full h-full md:w-full border-orange-100 flex flex-col items-center justify-center relative">
+            <div className="w-full min-h-[50vh]">
                 {error ? (
                   <p className="text-center text-red-500 text-lg">{error}</p>
                 ) : filteredPerformers.length === 0 ? (
-                  <p className="text-center text-gray-500 text-lg">
-                    No performers available for the selected category.
-                  </p>
+                  <div className="text-center py-20">
+                      <p className="text-gray-500 text-xl">No performers available for the selected category.</p>
+                  </div>
                 ) : (
-                  <div className="w-[80%] grid grid-cols gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {filteredPerformers.map((performer, index) => (
                       <PerformerCard
                         performer={performer}
@@ -169,7 +176,6 @@ const User = () => {
                     ))}
                   </div>
                 )}
-              </div>
             </div>
           </div>
         </div>
