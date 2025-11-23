@@ -56,50 +56,60 @@ const Signin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-sky-950 to-orange-100">
+    <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 rounded-full blur-[120px]"></div>
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+
       {loading ? (
         <Loadingg />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-30 max-w-6xl h-full">
-          <div className="flex flex-col w-[100%] h-[80%] items-center justify-center pt-8">
-            <h1 className="text-5xl font-bold mt-20 text-center">WELCOME</h1>
-            <SignInPicture />
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-10 max-w-6xl h-full relative z-10 p-4">
+          <div className="flex flex-col w-full h-full items-center justify-center">
+            <h1 className="text-5xl font-bold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400">WELCOME BACK</h1>
+            <div className="w-full max-w-md">
+               <SignInPicture />
+            </div>
           </div>
         
-          <div className="flex flex-col h-150 w-150 items-center justify-center p-8">
-            <div className="shadow-xl rounded-2xl h-[100%] shadow-black w-full max-w-md p-23">
-              <h2 className="text-3xl font-bold text-center mb-6">LOGIN</h2>
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-full max-w-md p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl shadow-blue-900/20">
+              <h2 className="text-3xl font-bold text-center mb-8 text-white">LOGIN</h2>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Enter Your Phone Number"
-                  value={form.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full border-2 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-sky-900"
-                />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Enter Your Password"
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                  className="w-full border-2 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-sky-900"
-                />
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={form.phone}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={form.password}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </div>
                 <button
                   type="submit"
-                  className="w-full py-3 bg-sky-900 text-white rounded-xl hover:bg-sky-800 transition duration-300"
+                  className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
                 >
                   LOGIN
                 </button>
               </form>
 
-              <p className="text-center mt-4">
+              <p className="text-center mt-8 text-gray-400">
                 New User?{" "}
-                <a href="/signup" className="text-sky-900 font-semibold hover:underline">
+                <a href="/signup" className="text-blue-400 font-semibold hover:text-blue-300 hover:underline transition-colors">
                   Create Account
                 </a>
               </p>

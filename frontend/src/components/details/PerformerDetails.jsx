@@ -319,53 +319,67 @@ const PerformerProfileForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-sky-900 to-orange-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden p-4">
+       {/* Background Gradients */}
+       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 rounded-full blur-[120px]"></div>
+       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-3xl bg-transparent  rounded-3xl shadow-2xl shadow-black  p-10 space-y-6"
+        className="w-full max-w-3xl bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl shadow-2xl shadow-blue-900/20 p-10 space-y-6 relative z-10"
       >
-        <h2 className="text-4xl font-bold text-center text-sky-900">
+        <h2 className="text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400">
           Create Performer Profile
         </h2>
 
         {/* Category */}
         <div className="flex flex-col gap-2">
-          <label className="text-lg font-semibold text-gray-700">Category</label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            className="rounded-lg border border-gray-300 p-3"
-          >
-            <option value="">Select Category</option>
-            {categoryOptions.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
+          <label className="text-lg font-semibold text-blue-400">Category</label>
+          <div className="relative">
+            <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+                className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none"
+            >
+                <option value="" className="bg-black text-gray-500">Select Category</option>
+                {categoryOptions.map((cat) => (
+                <option key={cat} value={cat} className="bg-black text-white">{cat}</option>
+                ))}
+            </select>
+             <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+          </div>
         </div>
 
         {/* SubCategory */}
         <div className="flex flex-col gap-2">
-          <label className="text-lg font-semibold text-gray-700">Subcategory</label>
-          <select
-            name="subCategory"
-            value={formData.subCategory}
-            onChange={handleChange}
-            required
-            disabled={!formData.category}
-            className="rounded-lg border border-gray-300 p-3 disabled:bg-gray-200"
-          >
-            <option value="">Select Subcategory</option>
-            {formData.category && subCategoryMap[formData.category]?.map((sub) => (
-              <option key={sub} value={sub}>{sub}</option>
-            ))}
-          </select>
+          <label className="text-lg font-semibold text-blue-400">Subcategory</label>
+          <div className="relative">
+            <select
+                name="subCategory"
+                value={formData.subCategory}
+                onChange={handleChange}
+                required
+                disabled={!formData.category}
+                className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <option value="" className="bg-black text-gray-500">Select Subcategory</option>
+                {formData.category && subCategoryMap[formData.category]?.map((sub) => (
+                <option key={sub} value={sub} className="bg-black text-white">{sub}</option>
+                ))}
+            </select>
+             <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+          </div>
         </div>
 
         {/* Experience */}
         <div className="flex flex-col gap-2">
-          <label className="text-lg font-semibold text-gray-700">Experience (Years)</label>
+          <label className="text-lg font-semibold text-blue-400">Experience (Years)</label>
           <input
             type="number"
             name="experience"
@@ -373,13 +387,13 @@ const PerformerProfileForm = () => {
             value={formData.experience}
             onChange={handleChange}
             required
-            className="rounded-lg border border-gray-300 p-3"
+            className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
           />
         </div>
 
         {/* Pricing */}
         <div className="flex flex-col gap-2">
-          <label className="text-lg font-semibold text-gray-700">Pricing (₹)</label>
+          <label className="text-lg font-semibold text-blue-400">Pricing (₹)</label>
           <input
             type="number"
             name="pricing"
@@ -387,13 +401,13 @@ const PerformerProfileForm = () => {
             value={formData.pricing}
             onChange={handleChange}
             required
-            className="rounded-lg border border-gray-300 p-3"
+            className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
           />
         </div>
 
         {/* Specialties */}
         <div className="flex flex-col gap-2">
-          <label className="text-lg font-semibold text-gray-700">Specialties (comma-separated)</label>
+          <label className="text-lg font-semibold text-blue-400">Specialties (comma-separated)</label>
           <input
             name="specialties"
             placeholder="e.g., Salsa, Bollywood, Contemporary"
@@ -403,34 +417,34 @@ const PerformerProfileForm = () => {
                 specialties: e.target.value.split(","),
               }))
             }
-            className="rounded-lg border border-gray-300 p-3"
+            className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
           />
         </div>
 
         {/* Bio */}
         <div className="flex flex-col gap-2">
-          <label className="text-lg font-semibold text-gray-700">Bio</label>
+          <label className="text-lg font-semibold text-blue-400">Bio</label>
           <textarea
             name="bio"
             placeholder="Tell us about yourself"
             rows="4"
             onChange={handleChange}
-            className="rounded-lg border border-gray-300 p-3"
+            className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
           />
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-between mt-8 gap-4">
           <button
             type="submit"
-            className="w-1/2 bg-sky-900 text-white rounded-lg py-3 font-semibold hover:bg-sky-800 transition duration-300"
+            className="w-1/2 py-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
           >
             Create Profile
           </button>
           <button
             type="button"
             onClick={() => navigate(`/signin`)}
-            className="w-1/2 ml-4 bg-gray-500 text-white rounded-lg py-3 font-semibold hover:bg-gray-600 transition duration-300"
+            className="w-1/2 py-4 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 border border-white/10 transition-all duration-300"
           >
             Cancel
           </button>

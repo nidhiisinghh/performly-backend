@@ -90,71 +90,92 @@ const BookingsByPerformer = () => {
 
   return (
     <>
-      <div className="h-full w-full bg-orange-100">
-        <div className="h-[30%] w-full p-20 text-9xl font-bold">
-          <h1>Welcome {performer?.userId?.name}</h1>
-          <h1 className="text-2xl font-medium pl-2">Performer Dashboard</h1>
+      <div className="min-h-screen w-full bg-black text-white relative overflow-x-hidden">
+         {/* Background Gradients */}
+         <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+            <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/20 rounded-full blur-[120px]"></div>
+            <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]"></div>
         </div>
 
-        <div className="h-[20%] text-sky-900 flex items-center text-9xl pl-20">
-          <h1 className="font-bold">Your Bookings</h1>
-        </div>
+        <div className="container mx-auto px-6 py-10 relative z-10">
+            <div className="mb-12">
+                <h1 className="text-6xl md:text-7xl font-bold mb-4">Welcome <span className="text-blue-500">{performer?.userId?.name}</span></h1>
+                <h2 className="text-2xl font-medium text-gray-400">Performer Dashboard</h2>
+            </div>
 
-        <div className="flex gap-4 justify-center my-6">
-          {["All", "Pending", "Confirmed", "Rejected"].map((status) => (
-            <button
-              key={status}
-              className={`px-4 py-2 rounded-lg shadow ${
-                filterStatus === status
-                  ? "bg-sky-600 text-white"
-                  : "bg-white border border-sky-600 text-sky-600"
-              }`}
-              onClick={() => setFilterStatus(status)}
-            >
-              {status}
-            </button>
-          ))}
-        </div>
+            <div className="mb-10">
+                <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400">Your Bookings</h1>
+            </div>
 
-        <div className="h-[40%] w-full flex justify-center">
-          <div className="h-full w-[90%] pt-20 flex justify-center">
-            {filteredBookings.length === 0 ? (
-              <p className="text-center text-gray-500">No bookings found.</p>
-            ) : (
-              <div className="grid grid-cols pb-10 gap-8 w-full max-w-6xl">
-                {filteredBookings.map((booking) => (
-                  <div
-                    key={booking._id}
-                    className="bg-sky-900 p-6 shadow-xl rounded-xl text-white hover:shadow-2xl hover:scale-105 transition duration-300"
-                  >
-                    <h3 className="text-lg font-semibold mb-2">
-                      Booking Date: {new Date(booking.date).toLocaleDateString()}
-                    </h3>
-                    <p><strong>Location:</strong> {booking.location}</p>
-                    <p><strong>Status:</strong> {booking.status}</p>
-                    <p><strong>Payment:</strong> {booking.paymentStatus}</p>
+            <div className="flex flex-wrap gap-4 mb-10">
+            {["All", "Pending", "Confirmed", "Rejected"].map((status) => (
+                <button
+                key={status}
+                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                    filterStatus === status
+                    ? "bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]"
+                    : "bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10"
+                }`}
+                onClick={() => setFilterStatus(status)}
+                >
+                {status}
+                </button>
+            ))}
+            </div>
 
-                    {booking.status === "Pending" && (
-                      <div className="mt-4 flex gap-2">
-                        <button
-                          className="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm font-medium"
-                          onClick={() => handleUpdateStatus(booking._id, "Confirmed")}
-                        >
-                          Confirm
-                        </button>
-                        <button
-                          className="w-full px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm font-medium"
-                          onClick={() => handleUpdateStatus(booking._id, "Rejected")}
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+            <div className="w-full min-h-[50vh]">
+                {filteredBookings.length === 0 ? (
+                <div className="text-center py-20 bg-white/5 rounded-3xl border border-white/10">
+                    <p className="text-gray-400 text-xl">No bookings found.</p>
+                </div>
+                ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredBookings.map((booking) => (
+                    <div
+                        key={booking._id}
+                        className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-all duration-300 group"
+                    >
+                        <div className="flex justify-between items-start mb-6">
+                            <div>
+                                <h3 className="text-xl font-bold text-white mb-1">
+                                    {new Date(booking.date).toLocaleDateString()}
+                                </h3>
+                                <p className="text-blue-400 text-sm">{booking.location}</p>
+                            </div>
+                            <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                booking.status === 'Confirmed' ? 'bg-green-500/20 text-green-400' :
+                                booking.status === 'Rejected' ? 'bg-red-500/20 text-red-400' :
+                                'bg-yellow-500/20 text-yellow-400'
+                            }`}>
+                                {booking.status}
+                            </span>
+                        </div>
+                        
+                        <div className="space-y-2 mb-6 text-gray-300">
+                            <p className="flex justify-between"><span>Payment:</span> <span className="text-white">{booking.paymentStatus}</span></p>
+                        </div>
+
+                        {booking.status === "Pending" && (
+                        <div className="flex gap-3 mt-auto">
+                            <button
+                            className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-bold transition-colors"
+                            onClick={() => handleUpdateStatus(booking._id, "Confirmed")}
+                            >
+                            Confirm
+                            </button>
+                            <button
+                            className="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/50 rounded-lg text-sm font-bold transition-colors"
+                            onClick={() => handleUpdateStatus(booking._id, "Rejected")}
+                            >
+                            Reject
+                            </button>
+                        </div>
+                        )}
+                    </div>
+                    ))}
+                </div>
+                )}
+            </div>
         </div>
 
         <Footer />
