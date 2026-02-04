@@ -21,7 +21,7 @@ const Performerinfo = () => {
     const fetchPerformer = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`https://performly-backend.onrender.com/api/performers/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/performers/${id}`);
         setPerformer(res.data);
         setError("");
       } catch (err) {
@@ -47,7 +47,7 @@ const Performerinfo = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `${BACKEND_URL}/api/bookings`,
+        `${import.meta.env.VITE_API_BASE_URL}/bookings`,
         {
           performerId: id,
           ...bookingData,
@@ -86,8 +86,8 @@ const Performerinfo = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-sky-800 to-orange-200 py-10">
-      <div className="w-[90%] max-w-6xl bg-white rounded-3xl shadow-2xl p-10 flex flex-col gap-6 relative">
+    <div className="w-full min-h-screen flex justify-center items-center bg-white py-10">
+      <div className="w-[90%] max-w-6xl bg-black/5 rounded-3xl shadow-2xl p-10 flex flex-col gap-6 relative border border-black/10">
         <div className="text-center">
           <h2 className="text-5xl font-extrabold text-sky-900">
             {performer?.userId?.name || "Unnamed Performer"}
@@ -140,7 +140,7 @@ const Performerinfo = () => {
                     name="date"
                     value={bookingData.date}
                     onChange={handleBookingChange}
-                    className="w-full border rounded-lg p-2 text-black"
+                    className="w-full border rounded-lg p-2 text-black bg-white"
                     required
                   />
                 </div>
@@ -154,7 +154,7 @@ const Performerinfo = () => {
                     name="time"
                     value={bookingData.time}
                     onChange={handleBookingChange}
-                    className="w-full border rounded-lg p-2 text-black"
+                    className="w-full border rounded-lg p-2 text-black bg-white"
                     required
                   />
                 </div>
@@ -172,7 +172,7 @@ const Performerinfo = () => {
                     value={bookingData.location}
                     onChange={handleBookingChange}
                     placeholder="Enter location"
-                    className="w-full border rounded-lg p-2 text-black"
+                    className="w-full border rounded-lg p-2 text-black bg-white"
                     required
                   />
                 </div>
@@ -180,9 +180,8 @@ const Performerinfo = () => {
                   <button
                     type="submit"
                     disabled={bookingLoading}
-                    className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all ease-in-out duration-300 ${
-                      bookingLoading ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all ease-in-out duration-300 ${bookingLoading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                   >
                     {bookingLoading ? "Booking..." : "Confirm Booking"}
                   </button>

@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.511.0",
     "mongoose": "^8.14.2",
+    "multer": "^2.0.2",
     "razorpay": "^2.9.6"
   },
   "devDependencies": {

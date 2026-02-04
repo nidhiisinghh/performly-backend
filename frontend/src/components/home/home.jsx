@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Lenis from 'lenis'
 import LoaderText from "../animate/loader";
 import Picture from "../animate/lottie";
 import { useNavigate } from "react-router-dom";
 import Cardsele from "../card/uf"
 import Footer from "../footer/footer"
 
+const InfoCard = ({ title, description }) => (
+  <div className="bg-white w-full min-h-[400px] rounded-2xl shadow-xl border border-black/5 overflow-hidden hover:scale-[1.02] transition-transform duration-300 group">
+    <div className="flex p-4 gap-2 bg-white border-b border-black/5">
+      <span className="bg-gray-300 w-3 h-3 rounded-full"></span>
+      <span className="bg-gray-300 w-3 h-3 rounded-full"></span>
+      <span className="bg-gray-300 w-3 h-3 rounded-full"></span>
+    </div>
+    <div className="p-12 flex flex-col justify-center h-full">
+      <h1 className="text-5xl font-bold text-black mb-8">{title}</h1>
+      <p className="text-black/80 text-xl leading-relaxed">{description}</p>
+    </div>
+  </div>
+);
+
 const Home = () => {
   const navigateto = useNavigate();
   const handlenavigate = () => {
-    navigateto("/signin");
+    navigateto("/signup");
   };
 
-  let stackArea = document.querySelector(".third-page");
 
-  window.addEventListener("scroll", ()=>{
-    let distance = window.innerHeight/2;
-    let topval = stackArea.getBoundingClientRect().top;
-    let index = -1 * (topval/distance +1);
-    index,Math.floor
-  });
 
   const images = [
     { src: "bands.webp", name: "Bands" },
@@ -28,172 +36,139 @@ const Home = () => {
     { src: "magician.jpg", name: "Magicians" },
     { src: "musician.webp", name: "Musicians" },
   ];
-  const secondSlideText = [
-    " BANDS ",
-    " COMEDIANS ",
-    " DANCERS ",
-    " DJS ",
-    " MAGICIAN ",
-    "MUSICIANS",
-    "RAPPERS",
-    "ENTERTAINERS",
-    "LYRICISTS",
-    "VOCALISTS",
-    "PAINTERS",
-    "ACTORS",
+  /* Parallax Logic */
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({
+        x: (e.clientX - window.innerWidth / 2) / 50,
+        y: (e.clientY - window.innerHeight / 2) / 50,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const lenis = new Lenis()
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+  }, [])
+
+  const parallaxImages = [
+    { src: "bands.webp", top: "10%", left: "10%", speed: 2 },
+    { src: "comedian.jpg", top: "20%", right: "15%", speed: -3 },
+    { src: "dancer.jpg", bottom: "15%", left: "15%", speed: 1.5 },
+    { src: "DJS.webp", bottom: "20%", right: "10%", speed: -2 },
+    { src: "magician.jpg", top: "50%", left: "5%", speed: 1 },
+    { src: "musician.webp", top: "45%", right: "5%", speed: -1.5 },
   ];
 
   return (
-    <div className="main h-full">
-     <div>
-  <header className="head fixed top-0 z-50 h-20 w-screen flex items-center justify-between bg-black/10 backdrop-blur-md border-b border-white/10">
+    <div className="main min-h-screen w-full bg-white relative">
+      <div>
+        <header className="head fixed top-0 z-50 h-20 w-screen flex items-center justify-between bg-transparent">
 
-    <div className="logo flex items-center pl-10">
-      <img src="./logoo.png" alt="Logo" className="h-12" />
-    </div>
+          <div className="logo flex items-center pl-10">
+            <img src="./logoo.png" alt="Logo" className="h-12" />
+          </div>
 
-    {/* Login button on the right */}
-    <div className="flex pr-10 items-center">
-      <button
-        className="h-10 px-6 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 text-white font-semibold hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-105 transition-all duration-300 ease-in-out"
-        onClick={handlenavigate}
-      >
-        LOGIN
-      </button>
-    </div>
-  </header>
-</div>
+          {/* Login button on the right */}
+          <div className="flex pr-10 items-center">
+            <button
+              className="h-10 px-6 rounded-full bg-transparent border border-black text-black font-semibold hover:bg-black hover:text-white hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:scale-105 transition-all duration-300 ease-in-out"
+              onClick={handlenavigate}
+            >
+              LOGIN
+            </button>
+          </div>
+        </header>
+      </div>
 
-      <div className="home-container overflow-x-hidden min-h-screen w-screen relative bg-black text-white">
-        <div className="service-text flex flex-col lg:flex-row h-screen w-full relative z-10">
-          <div className="w-full lg:w-2/5 h-full flex flex-col justify-center p-10 lg:pl-20">
-            <div className="text-pos w-full mb-8">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+      <div className="home-container overflow-x-hidden min-h-screen w-screen relative bg-white text-black flex items-center justify-center">
+        {/* Parallax Background Images */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          {parallaxImages.map((img, index) => (
+            <img
+              key={index}
+              src={img.src}
+              alt="floating"
+              className="absolute w-32 md:w-48 lg:w-60 object-cover rounded-xl shadow-2xl opacity-60 hover:opacity-100 transition-opacity duration-300"
+              style={{
+                top: img.top,
+                left: img.left,
+                right: img.right,
+                bottom: img.bottom,
+                transform: `translate(${mousePos.x * img.speed}px, ${mousePos.y * img.speed}px)`,
+                transition: "transform 0.1s ease-out",
+              }}
+            />
+          ))}
+        </div>
+        <div className="service-text flex flex-col items-center justify-center h-screen w-full relative z-10 text-center px-4">
+          <div className="max-w-4xl flex flex-col items-center justify-center">
+            <div className="mb-4">
+              <h1 className="text-[13rem] font-bold tracking-tighter  text-black ">
                 FIND YOUR PERFORMER
               </h1>
             </div>
-            <div className="textaniamte flex w-full mb-8">
-              <LoaderText />
-            </div>
-            <div className="third w-full">
-              <h1 className=" text-gray-300 text-2xl lg:text-3xl font-light leading-relaxed">
-                Your Gateway to Incredible Gigs and Unforgettable Events!
-              </h1>
-            </div>
-          </div>
-          <div className="second h-screen w-3/5 flex items-center relative overflow-hidden">
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-l from-black via-transparent to-transparent z-20 pointer-events-none"></div>
-            
-            <div className="slider w-1/3 h-[120%] -rotate-6 transform translate-y-[-10%] opacity-80">
-              <div className="w-full relative h-full">
-                <div className="animate-slide absolute left-0">
-                  {[...images, ...images].map((item, i) => (
-                    <div
-                      key={i}
-                      className="w-full p-2"
-                    >
-                      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20">
-                        <img
-                          src={item.src}
-                          className="h-64 w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="slider2 w-1/3 h-[120%] -rotate-6 transform translate-y-[-20%] opacity-60 mx-4">
-              <div className="w-full relative h-full">
-                <div className="animate-slide2 absolute left-0">
-                  {[...images, ...images, ...images].map((item, i) => (
-                    <div
-                      key={i}
-                      className="w-full p-2"
-                    >
-                      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20">
-                        <img
-                          src={item.src}
-                          className="h-64 w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-             <div className="slider3 w-1/3 h-[120%] -rotate-6 transform translate-y-[-5%] opacity-40">
-              <div className="w-full relative h-full">
-                 <div className="animate-slide absolute left-0" style={{animationDuration: '25s'}}>
-                  {[...images, ...images].map((item, i) => (
-                    <div
-                      key={i}
-                      className="w-full p-2"
-                    >
-                      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/20">
-                        <img
-                          src={item.src}
-                          className="h-64 w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div>
+              <h2 className="text-gray-700 text-2xl lg:text-3xl font-light leading-relaxed">
+                Your gateway to incredible gigs and unforgettable events!
+              </h2>
             </div>
           </div>
         </div>
       </div>{" "}
 
-      
-      <div className="second-page min-h-screen w-screen bg-black relative py-20">
-        <div className="one h-20 bg-blue-900/10 border-y border-blue-900/30 flex items-center overflow-hidden mb-20 backdrop-blur-sm">
-          <div className="secondslide-text space-x-20 font-bold text-2xl text-blue-400/50 whitespace-nowrap items-center tracking-widest">
-            {[...secondSlideText, ...secondSlideText, ...secondSlideText].map(
-              (text, index) => (
-                <span key={index}>✦ {text}</span>
-              )
-            )}
-          </div>
+
+      <div className="second-page min-h-screen w-screen bg-white relative py-20">
+        <div className="one h-20 flex items-center overflow-hidden mb-20 bg-transparent">
         </div>
-        
+
         <div className="container mx-auto px-10">
           <div className="mb-16">
-            <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-500 mb-4 appearanimation">
+            <h1 className="text-7xl font-bold text-black mb-6 appearanimation">
               What We Do
             </h1>
-            <p className="text-2xl text-gray-400 max-w-2xl secondtext">
+            <p className="text-2xl text-black/60 max-w-2xl secondtext">
               Connecting artists and organizers effortlessly to spotlight and discover talent.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="appearanimation2 p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-lg hover:bg-white/10 transition-all duration-500 group">
-              <h1 className="text-4xl font-bold text-blue-400 mb-6 group-hover:text-blue-300">Performers</h1>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                We empower performers with a platform to showcase their talent, manage gigs effortlessly, and secure fast, hassle-free payments. Build a captivating brand, grow your reputation with verified reviews, and stay connected with a supportive community.
-              </p>
+            <div className="appearanimation2">
+              <InfoCard
+                title="Performers"
+                description="We empower performers with a platform to showcase their talent, manage gigs effortlessly, and secure fast, hassle-free payments. Build a captivating brand, grow your reputation with verified reviews, and stay connected with a supportive community."
+              />
             </div>
 
-            <div className="appearanimation p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-lg hover:bg-white/10 transition-all duration-500 group">
-              <h1 className="text-4xl font-bold text-blue-400 mb-6 group-hover:text-blue-300">Clients & Organizers</h1>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Clients and event organizers can discover exceptional local talent, from musicians and magicians to comedians and dancers. Effortlessly browse and filter by category, price, availability, and location. Enjoy hassle-free bookings with instant gig requests.
-              </p>
+            <div className="appearanimation">
+              <InfoCard
+                title="Clients & Organizers"
+                description="Clients and event organizers can discover exceptional local talent, from musicians and magicians to comedians and dancers. Effortlessly browse and filter by category, price, availability, and location. Enjoy hassle-free bookings with instant gig requests."
+              />
             </div>
           </div>
         </div>
       </div>
-      <div className="third-page h- w-full">
-                 <Cardsele/>
-       
-</div>
+      <div className="third-page min-h-screen w-full">
+        <Cardsele />
 
-<div className="w-full ">
-  <Footer/>
-</div>
-      
+      </div>
+
+      <div className="w-full ">
+        <Footer />
+      </div>
+
     </div>
   );
 };

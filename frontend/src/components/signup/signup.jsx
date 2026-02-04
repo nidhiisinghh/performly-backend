@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
-  const [category, setCategory] = useState(""); 
+
+  const [category, setCategory] = useState("");
   const navigate = useNavigate();
 
 
@@ -13,7 +14,7 @@ const Signup = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const { name, email, phone, password } = form;
 
     if (!name || !email || !phone || !password || !category) {
@@ -35,7 +36,7 @@ const Signup = () => {
     };
 
     try {
-      const res = await fetch(`https://performly-backend.onrender.com/api/users/signup`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -63,13 +64,13 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden p-4">
+    <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden p-4">
       {/* Background Gradients */}
       <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-900/20 rounded-full blur-[120px]"></div>
       <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
 
-      <div className="w-full max-w-md bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl shadow-2xl shadow-blue-900/20 z-[2] p-8 relative">
-        <h1 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400">Sign Up</h1>
+      <div className="w-full max-w-md bg-black/5 border border-black/10 backdrop-blur-xl rounded-3xl shadow-2xl shadow-blue-900/20 z-[2] p-8 relative">
+        <h1 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-black to-blue-400">Sign Up</h1>
         <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="text"
@@ -78,7 +79,7 @@ const Signup = () => {
             value={form.name}
             onChange={handleChange}
             required
-            className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+            className="w-full bg-white/40 border border-black/10 rounded-xl p-4 text-black placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
           />
           <input
             type="email"
@@ -107,16 +108,17 @@ const Signup = () => {
             required
             className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
           />
+
           <div className="relative">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
-              className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none"
+              className="w-full bg-white/40 border border-black/10 rounded-xl p-4 text-black focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none"
             >
-              <option value="" className="bg-black text-gray-500">Select Category</option>
-              <option value="user" className="bg-black text-white">User</option>
-              <option value="performer" className="bg-black text-white">Performer</option>
+              <option value="" className="bg-white text-gray-500">Select Category</option>
+              <option value="user" className="bg-white text-black">User</option>
+              <option value="performer" className="bg-white text-black">Performer</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
               <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -124,14 +126,14 @@ const Signup = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
+            className="w-full py-4 bg-transparent border border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-600 hover:text-white hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
           >
             SIGN UP
           </button>
         </form>
         <p className="text-center mt-6 text-gray-400">
           Already Registered?{" "}
-          <a href="/signin" className="text-blue-400 font-semibold hover:text-blue-300 hover:underline transition-colors">
+          <a href="/signin" className="text-blue-600 font-semibold hover:text-blue-500 hover:underline transition-colors">
             LOGIN
           </a>
         </p>
