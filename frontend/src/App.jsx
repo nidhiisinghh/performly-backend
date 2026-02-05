@@ -1,8 +1,7 @@
 import React from "react";
 import Loader from "./components/animate/Background";
 import Home from "./components/home/home"
-import Signin from "./components/signin/signin"
-import Signup from "./components/signup/signup";
+import Auth from "./components/auth/Auth"
 import Role from "./components/card/uf"
 import Udash from "./components/dashboard/User"
 import Pdash from "./components/dashboard/performer"
@@ -12,6 +11,7 @@ import Performerinfo from "./info/performerinfo";
 import Userappointments from "./components/appointments/userappointments";
 import Payment from './components/payment/payment';
 import PerformerProfile from "./components/yourProfile/performerProfile";
+import PerformerLayout from "./components/layout/PerformerLayout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
@@ -20,16 +20,21 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Loader />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/signin" element={<Signin/>}/>
-        <Route path="/signup" element={<Signup/>}/>
-        <Route path="/userdashboard/:id" element={<Udash/>}/>
-        <Route path="/performerdashboard/:id" element={<Pdash/>}/>
-        <Route path='/performer/:id' element={<PerformerDetails/>}/>
+        <Route path="/signin" element={<Auth />} />
+        <Route path="/signup" element={<Auth />} />
+        <Route path="/userdashboard/:id" element={<Udash />} />
+
+        {/* Performer Routes with Persistent Layout */}
+        <Route element={<PerformerLayout />}>
+          <Route path="/performerdashboard/:id" element={<Pdash />} />
+          <Route path="/performerprofile/:id" element={<PerformerProfile />} />
+        </Route>
+
+        <Route path='/performer/:id' element={<PerformerDetails />} />
         <Route path="/add-performer" element={<AddPerformerForm />} />
         <Route path="/performerinfo/:id" element={<Performerinfo />} />
-        <Route path="/user/appointments/:id" element={<Userappointments/>}/>
-        <Route path="/payment/:bookingId" element={<Payment/>} />
-        <Route path="/performerprofile/:id" element={<PerformerProfile/>}/>
+        <Route path="/user/appointments/:id" element={<Userappointments />} />
+        <Route path="/payment/:bookingId" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );

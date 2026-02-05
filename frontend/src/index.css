@@ -1,108 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap");
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 body {
   scroll-behavior: smooth;
+  background-color: #ffffff;
+  color: #000000;
   background-color: #000000;
-  color: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
-
-
-.text-performly{
+.text-performly {
   display: inline-block;
   color: aqua;
   letter-spacing: 7px;
   width: 100%;
   border-right: 2px solid white;
-  white-space:nowrap;
+  white-space: nowrap;
   overflow: hidden;
-  animation:
-  typing 2s steps(9);
-
+  animation: typing 2s steps(9);
 }
 @keyframes typing {
-  0% {width: 0;}
-  
-} 
+  0% {
+    width: 0;
+  }
+}
 @keyframes slide {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
 }
 .animate-slide {
   animation: slide 20s linear infinite;
 }
 
 @keyframes slide2 {
-  0%   { transform: translateY(-50%); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .animate-slide2 {
   animation: slide2 20s linear infinite;
 }
 
-
 @keyframes loader {
   from {
     width: 0;
   }
-  
 }
-.secondslide-text{
-   animation: slide3 20s linear  infinite;
-
+.secondslide-text {
+  animation: slide3 20s linear infinite;
 }
 @keyframes slide3 {
-  0%{
+  0% {
     transform: translateX(0%);
   }
-  100%{
+  100% {
     transform: translateX(-50%);
   }
-  
 }
 
-.appearanimation{
+.appearanimation {
   animation: appear 1s linear;
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
 }
-.secondtext{
-   animation: appear 1s linear;
+.secondtext {
+  animation: appear 1s linear;
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
 }
 
 @keyframes appear {
   from {
-    
-      opacity: 0;
-      transform: translateX(-100%);
-  }to{
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
     opacity: 1;
     transform: translateX(0);
   }
-  
 }
 
-.appearanimation2{
+.appearanimation2 {
   animation: appear2 1s linear;
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
 }
 @keyframes appear2 {
   from {
-    
-      opacity: 0;
-      scale: 0;
-  }to{
+    opacity: 0;
+    scale: 0;
+  }
+  to {
     opacity: 1;
     scale: 1;
   }
-  
 }
-.cards{
+.cards {
   transition: 0.5s ease-in-out;
 }
 

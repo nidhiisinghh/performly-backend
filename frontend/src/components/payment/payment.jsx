@@ -16,7 +16,7 @@ const PaymentPage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `https://performly-backend.onrender.com/api/bookings/price/${bookingId}`,
+          `${import.meta.env.VITE_API_BASE_URL}/bookings/price/${bookingId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -37,7 +37,7 @@ const PaymentPage = () => {
       const amount = price;
 
       const orderRes = await axios.post(
-        `https://performly-backend.onrender.com/api/payment/createOrder`,
+        `${import.meta.env.VITE_API_BASE_URL}/payment/createOrder`,
         { amount }
       );
 
@@ -52,7 +52,7 @@ const PaymentPage = () => {
         order_id,
         handler: async function (response) {
           const verifyRes = await axios.post(
-            `https://performly-backend.onrender.com/api/payment/verifyPayment`,
+            `${import.meta.env.VITE_API_BASE_URL}/payment/verifyPayment`,
             {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -62,7 +62,7 @@ const PaymentPage = () => {
 
           if (verifyRes.data.message === "Payment verified") {
             await axios.put(
-              `https://performly-backend.onrender.com/api/bookings/${bookingId}/payment`,
+              `${import.meta.env.VITE_API_BASE_URL}/bookings/${bookingId}/payment`,
               { paymentStatus: "Paid" },
               {
                 headers: {
@@ -93,9 +93,9 @@ const PaymentPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-center relative overflow-hidden">
-       {/* Background Gradients */}
-       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 rounded-full blur-[120px]"></div>
-       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+      {/* Background Gradients */}
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 rounded-full blur-[120px]"></div>
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
 
       {/* Header */}
       <div className="h-[20vh] flex items-center justify-center relative z-10">
@@ -152,7 +152,7 @@ const PaymentPage = () => {
             </div>
           ) : (
             <div className="flex justify-center items-center h-60">
-                <p className="text-blue-400 animate-pulse text-xl">Loading booking details...</p>
+              <p className="text-blue-400 animate-pulse text-xl">Loading booking details...</p>
             </div>
           )}
         </div>

@@ -1,14 +1,15 @@
-import React from 'react'
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import React from 'react';
+import './loading.css';
 
-const loading = () => {
+const Loading = () => {
   return (
-    <DotLottieReact
-      src="https://lottie.host/3e8994d9-a74b-417a-a15f-c1582352303f/kpRoSuAf1l.lottie"
-      loop
-      autoplay
-    />
+    <div className="newtons-cradle">
+      <div className="newtons-cradle__dot"></div>
+      <div className="newtons-cradle__dot"></div>
+      <div className="newtons-cradle__dot"></div>
+      <div className="newtons-cradle__dot"></div>
+    </div>
   );
-}
+};
 
-export default loading
+export default Loading;
